@@ -1,0 +1,9 @@
+<view class="inner_container">
+  <view class="title">谁是卧底</view>
+  <text>当前已准备人数：2</text>
+  <view class="main_content">
+    您的词：哈哈
+    <button>重新发词</button>
+  </view>
+  <button class="bottom_btn" bindtap="createRoom">准备</button>
+</view>

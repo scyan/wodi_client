@@ -1,0 +1,18 @@
+<!--pages/create/create.wxml-->
+<view class="inner_container">
+  <view class="title">谁是卧底</view>
+  <checkbox-group  class="select_all"  bindchange="toggleAll" >
+    <label>全选<checkbox checked="{{selectAll}}" ></checkbox></label>
+  </checkbox-group>
+  <scroll-view class="category_container" scroll-y="true">
+    <checkbox-group bindchange="checkboxChange" >
+      <label class="category" wx:key="{{key}}" wx:for="{{category}}">
+        <checkbox checked="{{selectAll}}" class="checkbox" value="{{index}}" />
+        {{item.title}}
+      </label>
+    </checkbox-group>
+  </scroll-view>
+  <button class="bottom_btn" bindtap="createRoom">创建房间</button>
+  <text class="tips">游戏可容纳{{min}}-{{max}}人</text>
+
+</view>
