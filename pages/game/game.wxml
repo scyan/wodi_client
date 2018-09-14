@@ -4,6 +4,12 @@
   <view class="main_content">
     您的词：哈哈
     <button>重新发词</button>
+    <scroll-view class="user_list" scroll-y="true">
+      <view wx:key="{{index}}" wx:for="{{userList}}">
+        <image class="avatar" src='{{item.avatar}}'></image>
+        <text>{{item.userName}}</text>
+      </view>
+    </scroll-view>
   </view>
   <button class="bottom_btn" bindtap="createRoom">准备</button>
 </view>

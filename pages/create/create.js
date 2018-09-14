@@ -13,8 +13,15 @@ Page({
   },
   createRoom: function(){
     console.log('创建房间')
+    console.log(app.globalData.userInfo)
     app.setData('selectedArr', this.data.selectedArr)
-    
+    wx.connectSocket({
+      url: 'ws://localhost:3000/wss3/enter?userId=123&userName=abc&avatar=bcd&categoryIds=' + JSON.stringify(this.data.selectedArr),
+      
+    })
+    wx.onSocketMessage(function (res) {
+      console.log('收到服务器内容：' + res.data)
+    })
   },
   checkboxChange: function(e){
     this.setData({selectedArr:e.detail.value})

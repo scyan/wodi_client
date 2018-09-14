@@ -5,7 +5,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-  
+    userList: [{ userId: 123,  userName:'111',avatar:'https://ws3.sinaimg.cn/large/9150e4e5ly1fsi2dm4liwj20c80bj74n.jpg'}],
+    status:1
   },
 
   /**
