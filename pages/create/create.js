@@ -12,16 +12,22 @@ Page({
     max: gdc.max
   },
   createRoom: function(){
-    console.log('创建房间')
-    console.log(app.globalData.userInfo)
-    app.setData('selectedArr', this.data.selectedArr)
+    if(this.data.selectedArr.length==0){
+      wx.showToast({
+        title:'请选择词类',
+        icon:'none'
+      })
+      return ;
+    }
+    app.setCategoryIds(this.data.selectedArr)
+
     wx.connectSocket({
       url: 'ws://localhost:3000/wss3/enter?userId=123&userName=abc&avatar=bcd&categoryIds=' + JSON.stringify(this.data.selectedArr),
-      
     })
     wx.onSocketMessage(function (res) {
       console.log('收到服务器内容：' + res.data)
     })
+    wx.redirectTo({ url:'/pages/game/game'})
   },
   checkboxChange: function(e){
     this.setData({selectedArr:e.detail.value})
@@ -37,59 +43,5 @@ Page({
     }
     this.setData({ selectedArr:arr})
   },
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-  
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-  
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-  
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
+ 
 })

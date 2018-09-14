@@ -37,7 +37,7 @@ App({
   globalData: {
     userInfo: null
   },
-  setData: function(key,data){
-    this.globalData[key]=data
+  setCategoryIds: function (categoryIds){
+    this.globalData.categoryIds = categoryIds
   }
 })
