@@ -1,9 +1,11 @@
 {
   "pages": [
     "pages/create/create",
+    "pages/index/index",
+    
     "pages/game/game",
     
-    "pages/index/index",
+    
     "pages/logs/logs"
     
   ],

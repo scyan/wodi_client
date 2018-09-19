@@ -1,7 +1,8 @@
 //app.js
 App({
-  onLaunch: function () {
-    
+  onLaunch: function() {
+    const appid = 'wxa95b0f5b90c734b9';
+    const secret = 'b37b1cd883851633ab39b8bfb5abc1a7';
     // 展示本地存储能力
     var logs = wx.getStorageSync('logs') || []
     logs.unshift(Date.now())
@@ -10,6 +11,13 @@ App({
     // 登录
     wx.login({
       success: res => {
+        wx.request({
+          url: 'https://api.weixin.qq.com/sns/jscode2session?appid=' + appid + '&secret=' + secret + '&js_code=' + res.code + '&grant_type=authorization_code',
+          success: (res) => {
+            this.globalData.openid = res.data.openid;
+            console.log(res);
+          }
+        })
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
       }
     })
@@ -21,6 +29,7 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
+              console.log(res.userInfo)
               this.globalData.userInfo = res.userInfo
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -35,9 +44,11 @@ App({
     })
   },
   globalData: {
-    userInfo: null
+    userInfo: null,
+    
   },
-  setCategoryIds: function (categoryIds){
-    this.globalData.categoryIds = categoryIds
-  }
+  getUserInfo: function(){
+    return {...this.globalData.userInfo,openid: this.globalData.openid};
+  },
+
 })

@@ -5,6 +5,9 @@
 .user_list{
   height: 590rpx;
 }
+.user_item{
+  display: flex;
+}
 .avatar{
   width: 120rpx;
   height: 120rpx;

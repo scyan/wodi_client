@@ -1,4 +1,6 @@
 const gdc = require('../../utils/gdc.js');
+const socket = require('../../socket');
+const room = require('../../room');
 const app = getApp();
 Page({
   /**
@@ -19,15 +21,19 @@ Page({
       })
       return ;
     }
-    app.setCategoryIds(this.data.selectedArr)
-
-    wx.connectSocket({
-      url: 'ws://localhost:3000/wss3/enter?userId=123&userName=abc&avatar=bcd&categoryIds=' + JSON.stringify(this.data.selectedArr),
-    })
-    wx.onSocketMessage(function (res) {
-      console.log('收到服务器内容：' + res.data)
-    })
-    wx.redirectTo({ url:'/pages/game/game'})
+    room.setCategoryIds(this.data.selectedArr)
+    const userInfo = app.getUserInfo();
+    socket.connect({ 
+      userId: userInfo.openid,
+      userName: userInfo.nickName, 
+      avatar: userInfo.avatarUrl, 
+      categoryIds: JSON.stringify(this.data.selectedArr)
+    },
+    ()=>{
+      wx.redirectTo({ url: '/pages/game/game' })
+    }
+    );
+    
   },
   checkboxChange: function(e){
     this.setData({selectedArr:e.detail.value})
