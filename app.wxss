@@ -17,10 +17,13 @@
   left:0;
   right:0;
   align-items:center;
+  
   flex-direction:column;
   padding: 86rpx 123rpx 112rpx 123rpx;
 }
 .bottom_btn{
-  position: absolute;
-  bottom: 112rpx;
+  align-self: flex-end;
+  justify-self: flex-end;
+  margin-top:auto;
+  /* bottom: 112rpx; */
 }

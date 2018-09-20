@@ -1,6 +1,14 @@
 //app.js
 App({
   onLaunch: function() {
+    wx.BaaS = requirePlugin('sdkPlugin')
+    //让插件帮助完成登录、支付等功能
+    wx.BaaS.wxExtend(wx.login,
+      wx.getUserInfo,
+      wx.requestPayment)
+
+    wx.BaaS.init('1fbe2b041977742c416f')
+    
     const appid = 'wxa95b0f5b90c734b9';
     const secret = 'b37b1cd883851633ab39b8bfb5abc1a7';
     // 展示本地存储能力

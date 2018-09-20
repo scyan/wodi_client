@@ -13,5 +13,12 @@ module.exports = {
     ready:1,//准备阶段
     start:2,//游戏开始
     speak:3,//发言
+  },
+  audioConfig:{
+    duration:100000,
+    frameSize:500
+  },
+  audioFile:{
+    categoryID:'5ba3aea4adff892008bfa40d'
   }
 }

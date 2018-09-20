@@ -2,7 +2,6 @@
   <view class="title">谁是卧底</view>
   <text  wx:if="{{status<2}}">当前已准备人数：{{readyCount}}</text>
   <text wx:if="{{status==3}}">{{speakingUser.userName}} 正在发言</text>
-  
   <view class="main_content">
     <block wx:if="{{status>=2}}">
       您的词：{{word}}
@@ -13,17 +12,27 @@
       <view class="user_item" wx:key="{{index}}" wx:for="{{userList}}">
         <image class="avatar" src='{{item.avatar}}'></image>
         <text>{{item.userName}}</text>
-        <view wx:if="{{item.myStatus == 'ready'}}">已准备</view>
+        
+        <view wx:if="{{item.ready }}">已准备</view>
       </view>
     </scroll-view>
   </view>
   <block wx:if="{{status<2}}">
-    <button wx:if="{{myStatus == 0}}" class="bottom_btn" bindtap="ready">准备</button>
-   <button wx:if="{{myStatus == 1}}" class="bottom_btn" >已准备</button>
+    <button wx:if="{{!ready}}" class="bottom_btn" bindtap="ready">准备</button>
+    <button wx:if="{{ready}}" class="bottom_btn" >已准备</button>
   </block>
   <block wx:elif="{{status<4}}"> 
-    <button wx:if="{{myStatus == 3}}" class="bottom_btn" >按住发言</button>
+    <block  wx:if="{{openid == speakingUser.userId}}">
+      <button wx:if="{{mySpeakStatus == 0}}" class="bottom_btn" bindtouchstart="speak" bindtouchend="endSpeak">按住发言</button>
+      <block wx:elif="{{mySpeakStatus == 1}}" >
+        <view class="bottom_btn speak_btn_group">
+          <button   bindtap="sendSpeak" >发送</button>
+          <button   bindtap="reSpeak" >重录</button>
+          <button   bindtap="playMySpeak" >听</button>
+        </view>
+      </block>
+      
+    </block>
     <button wx:else class="bottom_btn" disabled='true' >按住发言</button>
   </block>
-  
 </view>

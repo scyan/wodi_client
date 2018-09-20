@@ -5,7 +5,7 @@ class Socket {
     this.socketMsgQueue = [];
   }
   connect(data, cb) {
-    let url = 'ws://localhost:3000/wss3/enter?'
+    let url = 'ws://192.168.0.4:3000/wss3/enter?'
     for (var key in data) {
       url += key + '=' + data[key] + '&'
     }
