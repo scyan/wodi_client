@@ -77,6 +77,11 @@ Page({
       innerAudioContext.play();
     })
   },
+
+  audioPlay: function (e) {
+    innerAudioContext.src = e.target.dataset.audio;
+    innerAudioContext.play();
+  },
   reSpeak: function(){
     this.setData({
       mySpeakStatus: 0
@@ -101,7 +106,7 @@ Page({
       if(res.statusCode===200){
         socket.send({
           type: 'speak',
-          cdnPath: res.data.file.path
+          cdnPath: res.data.path
         })
       }else{
         wx.showToast({
