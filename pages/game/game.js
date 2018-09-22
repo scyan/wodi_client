@@ -14,8 +14,10 @@ Page({
    */
   data: {
     openid:0,
+    host:-1,
     userList: [],
-    ready: false, //个人状态
+    ready: false, //个人状态，是否准备
+    voted: false,//个人状态，是否投票
     status: status.ready, //房间状态
     word: '', //我的词语
     start: false, //游戏是否已经开始
@@ -23,7 +25,7 @@ Page({
     speakingUser: {}, //当前发言的用户信息
     mySpeakStatus: 0,//0:未发言，1:发言完毕
   },
-
+  
   /**
    * 生命周期函数--监听页面加载
    */
@@ -49,15 +51,39 @@ Page({
       if (data.status == status.speak) {
         this.getSpeakUser(data.userList);
       }
+      if(data.status==status.voteEnd){
+        this.setData({
+          maxUserIndex: maxUserIndex
+        })
+      }
+      if(data.status===status.gameOver){
+        this.setData({
+          winner: data.winner=='wodi'?'卧底':'平民',
+          words: data.words
+        })
+      }
+      
       this.setData({
         userList: data.userList,
-        status: data.status
+        status: data.status,
+        host: data.host
       })
+    })
+  },
+  //重新切词
+  changeWord: function(){
+    socket.send({
+      type:'change_word'
+    })
+  },
+  //游戏结束后刷新到准备界面
+  refresh: function(){
+    socket.send({
+      type:'get_new_round'
     })
   },
   //发送准备消息
   ready: function() {
-
     socket.send({
       type: 'ready'
     })
@@ -102,11 +128,11 @@ Page({
     },{
       categoryID:gdc.audioFile.categoryID
     }).then((res)=>{
-      console.log(res)
+      
       if(res.statusCode===200){
         socket.send({
           type: 'speak',
-          cdnPath: res.data.path
+          audioPath: res.data.path
         })
       }else{
         wx.showToast({
@@ -115,6 +141,15 @@ Page({
         })
       }
 
+    })
+  },
+  vote: function(e){
+    this.setData({
+      voted: true
+    })
+    socket.send({
+      type:'vote',
+      toUserId: e.target.dataset.userId
     })
   },
   //获取自己的词
@@ -141,7 +176,7 @@ Page({
   getSpeakUser(userList) {
     const userInfo = app.getUserInfo();
     userList.some((user) => {
-      if (user.speak == 1) { //1:轮到发言 2:已经发言
+      if (user.speakState === 1) { //0：未轮到，1:轮到发言 2:已经发言
         this.setData({
           speakingUser: user
         })

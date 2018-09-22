@@ -35,6 +35,9 @@ class Socket {
     if (!data.type) {
       return;
     }
+    if(data.host){
+      room.setHost(data.host);
+    }
     if (data.type === 'change_userList') {
       room.changeUserList(data.userList);
       return;
@@ -44,8 +47,25 @@ class Socket {
       return;
     }
     if (data.type === 'can_speak') {
-      room.canSpeak(data.userList);
+      room.canSpeak(data.userList,data.notFirst);
       return;
+    }
+    if(data.type === 'can_vote'){
+      room.canVote(data.userList);
+      return;
+    }
+    if(data.type==='vote_end'){
+      room.voteEnd(data.userList, data.maxUserIndex);
+      return;
+    }
+    if(data.type==='game_over'){
+      room.gameOver(data.userList,data,winner,data.words)
+    }
+    if(data.type==='get_new_round'){
+      room.refresh(data.userList);
+    }
+    if(data.type==='change_word'){
+      room.changeWord(data.userList);
     }
   }
   send(msg) {

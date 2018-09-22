@@ -1,6 +1,6 @@
 .main_content{
   width: 100%;
-  
+  background: #fff;
 }
 .user_list{
   height: 590rpx;

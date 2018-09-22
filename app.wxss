@@ -21,7 +21,7 @@
   flex-direction:column;
   padding: 86rpx 123rpx 112rpx 123rpx;
 }
-.bottom_btn{
+.bottom_area{
   align-self: flex-end;
   justify-self: flex-end;
   margin-top:auto;
