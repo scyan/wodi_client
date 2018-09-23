@@ -30,10 +30,25 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.setData({
-      openid:app.getUserInfo().openid,
-      userList: room.getUserList()
-    })
+    const {roomId,categoryIds}=options;
+    if(roomId && categoryIds){
+      const userInfo = app.getUserInfo();
+      room.setCategoryIds(JSON.parse(categoryIds))
+      room.setId(oprions.roomId);
+      socket.connect({
+        roomId,
+        categoryIds,
+        userId: userInfo.openid,
+        userName: userInfo.nickName,
+        avatar: userInfo.avatarUrl,
+      });
+    }else{
+      this.setData({
+        openid: app.getUserInfo().openid,
+        userList: room.getUserList()
+      })
+    }
+
     room.addListener('game', (data) => {
       //如果游戏开始，从userList中获取自己的词
       if (this.data.status < status.start && data.status == status.start) {
@@ -194,6 +209,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    console.log(room.getId())
+    return {
+      title: this.data.title,
+      path: '/pages/game/game?fromCard=true&roomId=' + room.getId() + '&categoryIds=' + JSON.stringify(room.getCategoryIds())
+      // imageUrl: '/pages/shareCard/index?newCode=' + newCode + '&userId=' + userId,
+    }
   }
 })

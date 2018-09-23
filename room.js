@@ -9,7 +9,8 @@ class Room {
       status: status.ready, //1:ready，2:start,3:speak
       userList: [],
       categoryIds: [],
-      host:0,
+      host:-1,
+      roomId:-1,
     };
   }
   filter(keyArray){
@@ -25,6 +26,18 @@ class Room {
       this.data.host = userId;
       this.setChangedData();
     }
+  }
+  setId(id){
+    if(this.data.roomId!==id){
+      this.data.roomId=id;
+      this.setChangedData();
+    }
+  }
+  getId(){
+    return this.data.roomId;
+  }
+  getCategoryIds(){
+    return this.data.categoryIds;
   }
   //改变用户状态，数量或者个别用户状态
   changeUserList(userList) {
@@ -77,7 +90,7 @@ class Room {
     this.setChangedData();
   }
   refresh(userList){
-    this.filert(['status', 'host', 'userList', 'categoryIds'])
+    this.filert(['roomId','status', 'host', 'userList', 'categoryIds'])
     this.data.status=1;
     this.data.userList = userList;
     
@@ -85,7 +98,7 @@ class Room {
   }
   //切词以后从start状态重新开始
   changeWord(userList){
-    this.filter(['status', 'host', 'userList', 'categoryIds'])
+    this.filter(['roomId','status', 'host', 'userList', 'categoryIds'])
     this.start(userList);
   }
   //设置词类

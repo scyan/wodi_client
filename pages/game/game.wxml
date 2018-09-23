@@ -1,8 +1,8 @@
 <view class="inner_container">
   <view class="title">谁是卧底</view>
   <text  wx:if="{{status<2}}">当前已准备人数：{{readyCount}}</text>
-  <text wx:if="{{status==3}}">{{speakingUser.userName}} 正在发言</text>
   <view class="main_content">
+    <button wx:if="{{status<2}}" open-type="share">邀请好友加入</button>
     <block wx:if="{{status>=2}}">
       您的词：{{word}}
       <button wx:if="{{host==openid}}" bindTap="changeWord">重新发词</button>
@@ -23,6 +23,7 @@
         <view wx:if="{{status<2 && item.ready }}">已准备</view>
       </view>
     </scroll-view>
+    <text wx:if="{{status==3}}">{{speakingUser.userName}} 正在发言</text>
     <block wx:if="{{status==5}}">
      <view>
         本轮投票结束，

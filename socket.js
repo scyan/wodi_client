@@ -38,6 +38,9 @@ class Socket {
     if(data.host){
       room.setHost(data.host);
     }
+    if(data.roomId){
+      room.setId(data.roomId);
+    }
     if (data.type === 'change_userList') {
       room.changeUserList(data.userList);
       return;
