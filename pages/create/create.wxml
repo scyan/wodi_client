@@ -1,18 +1,42 @@
 <!--pages/create/create.wxml-->
-<view class="inner_container">
-  <view class="title">谁是卧底</view>
-  <checkbox-group  class="select_all"  bindchange="toggleAll" >
-    <label>全选<checkbox checked="{{selectAll}}" ></checkbox></label>
-  </checkbox-group>
-  <scroll-view class="category_container" scroll-y="true">
-    <checkbox-group bindchange="checkboxChange" >
-      <label class="category" wx:key="{{key}}" wx:for="{{category}}">
-        <checkbox checked="{{selectAll}}" class="checkbox" value="{{index}}" />
-        {{item.title}}
-      </label>
+
+<!--
+  cindex: 1, 
+  name: '娱乐圈'
+-->
+<template name="categoryItem">
+    <checkbox-group bindchange="checkboxChange" data-cid="{{cindex}}" >
+        <label class="category" >
+            <checkbox checked="{{cindex==(selectedArr[0])}}" class="checkbox" />
+            {{name}}
+        </label>
     </checkbox-group>
-  </scroll-view>
-  <button class="bottom_area" bindtap="createRoom">创建房间</button>
-  <text class="tips">游戏可容纳{{min}}-{{max}}人</text>
+</template>
+
+
+<view class="container">
+  <view class="bg-pic">
+    <image class="main-bg" src="../../resource/image/create/main-bg.png"></image>
+
+<!--     <checkbox-group  class="select_all"  bindchange="toggleAll" >
+      <label>全选<checkbox checked="{{selectAll}}" ></checkbox></label>
+    </checkbox-group>
+ -->
+    <scroll-view class="word-type-container" scroll-y="true">
+        <view class="word-type-scroll">
+            <block wx:key="cindex" wx:for="{{category}}">
+                <template is="categoryItem" data="{{cindex:item.cindex,name:item.name,selectedArr:selectedArr}}"/>
+            </block>
+        </view>
+    </scroll-view>
+  </view>
+
+  <view class="start">
+    <button class="start-btn" plain="true" disabled="{{false}}" bindtap="createRoom">
+      <image src="../../resource/image/general/button-normal.png"></image>
+      <label>创建房间</label>
+    </button>
+    <text class="tips">游戏可容纳{{min}}-{{max}}人</text>
+  </view>
 
 </view>

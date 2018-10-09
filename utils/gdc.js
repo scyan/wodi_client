@@ -1,9 +1,14 @@
 module.exports = {
   category: [
-    {
-      "title": "综合",
-      "words": []
-    },
+    // @cover
+    // {
+    //   "title": "综合",
+    //   "words": []
+    // },
+
+    {cindex: 1, name: '综合', "words": []},
+    {cindex: 2, name: '美食', "words": []},
+    {cindex: 3, name: '二次元', "words": []}
 
   ],
   min:5,

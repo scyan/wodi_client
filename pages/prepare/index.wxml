@@ -1,0 +1,98 @@
+<!--
+  {userId: "123",
+   userName: "123name",
+   avatar: "11111",
+   status: "ready",
+   word:'今天',
+   isWodi:false,
+   wordsIndex: 12,
+   voteUserId: undefined}
+-->
+<template name="userItem">
+  <view class="userlist-scroll {{itemStyle}}-item">
+    <block wx:if="{{avatar}}">
+      <image class="user-avatar" src='{{avatar}}'></image>
+    </block>
+    <block wx:else>
+      <image class="user-avatar" src='../../resource/image/general/avatar.png'></image>
+    </block>
+
+    
+    <view class="user-name">
+      <text style="margin-left: 20rpx;" class="{{status == 'ready' ? 'status-done':''}}">{{userName}}</text>
+    </view>
+
+    <block wx:if="{{status == 'ready'}}">
+      <text class="user-status status-done">已准备</text> 
+    </block>
+    <block wx:else>
+      <text class="user-status">未准备</text> 
+    </block>
+  </view>
+</template>
+
+<view class="container">
+  <view class="bg-pic">
+    <image class="main-bg" src="../../resource/image/game/game-bg.png"></image>
+
+    <view class="game-intro">
+      <view class="game-intro-h3">
+        <text>邀请玩家或准备</text>
+      </view>
+      <view class="game-intro-h4">
+        <text class="game-intro-text">距游戏最低准备人数还差：</text>
+        <text class="game-num game-intro-num">{{needPrepareNum}}</text>
+        <text class="game-intro-text">人</text>
+      </view>
+    </view>
+
+    <view class="main-content">
+      <view class="main-content-bg">
+        <view style="display: flex; flex-direction: column; align-items: flex-end;">
+          <button class="small-btn" plain="true" open-type="share">
+            <image src="../../resource/image/general/button-small.png"></image>
+            <label>邀请好友</label>
+          </button>
+        </view>
+
+        <view class="userlist-bg">
+          <scroll-view class="userlist-container" scroll-y="true">
+              <view>
+                  <block wx:key="userId" wx:for="{{userList}}">
+                      <template is="userItem" data="{{avatar:item.avatar,userName:item.userName,status:item.status,itemStyle:index%2==0?'odd':'even'}}"/>
+                  </block>
+              </view>
+          </scroll-view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+
+  <view class="start">
+    
+    <block wx:if="{{buttonStatus == 2}}">
+      <button class="start-btn" plain="true" disabled="{{false}}">
+        <image src="../../resource/image/general/button-disable.png"></image>
+        <label class="label-disabled">已准备</label>
+      </button>
+    </block>
+
+    <block wx:elif="{{buttonStatus == 1}}">
+      <button class="start-btn" plain="true" disabled="{{false}}" bindtap="bindReady">
+        <image src="../../resource/image/general/button-normal.png"></image>
+        <label>未准备</label>
+      </button>
+    </block>
+
+    <block wx:else>
+      <button class="start-btn" plain="true" disabled="{{false}}" >
+        <image src="../../resource/image/general/button-disable.png"></image>
+        <label class="label-disabled">未达人数</label>
+      </button>
+    </block>
+
+    <text class="tips">游戏最少需要{{limitMinUsers}}人准备</text>
+  </view>
+
+</view>

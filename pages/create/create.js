@@ -13,7 +13,11 @@ Page({
     min: gdc.min,
     max: gdc.max
   },
+  onLoad: function() {
+    console.log(this.data.category);
+  },
   createRoom: function(){
+    console.log(this.data.selectedArr);
     if(this.data.selectedArr.length==0){
       wx.showToast({
         title:'请选择词类',
@@ -36,8 +40,12 @@ Page({
     
   },
   checkboxChange: function(e){
-    this.setData({selectedArr:e.detail.value})
+    console.log([e.currentTarget.dataset.cid]);
+    this.setData({
+      selectedArr: [e.currentTarget.dataset.cid]
+    })
   },
+
   //全选
   toggleAll: function(e){
     this.setData({selectAll:!this.data.selectAll})

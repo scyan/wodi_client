@@ -1,5 +1,50 @@
+/*create.wxss**/
+
+.word-type-container{
+  width: 510rpx; 
+  height: 510rpx;
+  background: rgba(255,255,255, 0.2);
+  border: 2rpx solid #000;
+  position: absolute;
+  top: 360rpx;
+  padding: 20rpx;
+}
+
+.word-type-scroll{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: space-between;
+  flex-wrap: wrap;
+}
+
+.category{
+  width: 150rpx;
+  height: 150rpx;
+  float: left;
+  text-align: center;
+  line-height: 150rpx;
+  margin: 8rpx;
+  background: #ACDFDC;
+  position: relative;
+  overflow: hidden;
+  color: #000;
+  font-weight: bold;
+  font-size: 36rpx;
+  border: 2rpx solid #000;
+}
+
+.checkbox{
+  position: absolute;
+  left: 0;
+  top: -53rpx;
+  border-radius: 0;
+}
 
 
+
+
+/*@cover
 .select_all{
   width:100%;
   text-align:right;
@@ -25,7 +70,6 @@
   position: absolute;
   margin-top:-53rpx;
   left:0;
-  
 }
 
 .tips{
@@ -34,3 +78,4 @@
   font-size:26rpx;
   color:#666;
 }
+*/

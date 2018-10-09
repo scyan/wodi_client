@@ -4,16 +4,17 @@
     "pages/index/index",
     
     "pages/game/game",
-    
+    "pages/prepare/index",
     
     "pages/logs/logs"
     
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTitleText": "谁是卧底在线版",
+    "navigationBarBackgroundColor": "#5755C3",
+    "navigationBarTextStyle": "#fff"
+
   },
   "plugins": {
     "sdkPlugin": {
