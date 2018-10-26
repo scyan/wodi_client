@@ -5,12 +5,11 @@
   name: '娱乐圈'
 -->
 <template name="categoryItem">
-    <checkbox-group bindchange="checkboxChange" data-cid="{{cindex}}" >
-        <label class="category" >
-            <checkbox checked="{{cindex==(selectedArr[0])}}" class="checkbox" />
-            {{name}}
-        </label>
-    </checkbox-group>
+  <checkbox-group bindchange="checkboxChange" data-cid="{{cindex}}">
+    <label class="category">
+      <checkbox class="checkbox" /> {{title}}
+    </label>
+  </checkbox-group>
 </template>
 
 
@@ -18,16 +17,20 @@
   <view class="bg-pic">
     <image class="main-bg" src="../../resource/image/create/main-bg.png"></image>
 
-<!--     <checkbox-group  class="select_all"  bindchange="toggleAll" >
+    <!--     <checkbox-group  class="select_all"  bindchange="toggleAll" >
       <label>全选<checkbox checked="{{selectAll}}" ></checkbox></label>
     </checkbox-group>
  -->
     <scroll-view class="word-type-container" scroll-y="true">
-        <view class="word-type-scroll">
-            <block wx:key="cindex" wx:for="{{category}}">
-                <template is="categoryItem" data="{{cindex:item.cindex,name:item.name,selectedArr:selectedArr}}"/>
-            </block>
-        </view>
+      <view class="word-type-scroll">
+        <checkbox-group bindchange="checkboxChange" data-cid="{{cindex}}">
+          <block wx:key="index" wx:for="{{category}}">
+            <label class="category">
+              <checkbox class="checkbox" value="{{index}}"/> {{item.title}}
+            </label>
+          </block>
+        </checkbox-group>
+      </view>
     </scroll-view>
   </view>
 

@@ -20,7 +20,7 @@ Page({
         buttonStatus: 0,
         needPrepareNum: 3,
         // 最少游戏人数
-        limitMinUsers: 3
+        limitMinUsers: 3,
 
 
     openid:0,

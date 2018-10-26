@@ -40,10 +40,7 @@ Page({
     
   },
   checkboxChange: function(e){
-    console.log([e.currentTarget.dataset.cid]);
-    this.setData({
-      selectedArr: [e.currentTarget.dataset.cid]
-    })
+    this.setData({ selectedArr: e.detail.value })
   },
 
   //全选
