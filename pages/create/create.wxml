@@ -1,18 +1,4 @@
 <!--pages/create/create.wxml-->
-
-<!--
-  cindex: 1, 
-  name: '娱乐圈'
--->
-<template name="categoryItem">
-  <checkbox-group bindchange="checkboxChange" data-cid="{{cindex}}">
-    <label class="category">
-      <checkbox class="checkbox" /> {{title}}
-    </label>
-  </checkbox-group>
-</template>
-
-
 <view class="container">
   <view class="bg-pic">
     <image class="main-bg" src="../../resource/image/create/main-bg.png"></image>

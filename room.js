@@ -7,7 +7,7 @@ class Room {
     this.callback = {};
     this.data = {
       status: status.ready, //1:ready，2:start,3:speak
-      userList: [],
+      userList: [{ avatar: '//wx.qlogo.cn/mmopen/vi_32/DYAIOgq83epbbuXwTlR0uPOay7ogFZORfbjSdYAty6wicyKibxiboicdrt0ialLrqmmUCVNCNcURnEkKuseZ6ZiczPRg/132', userName: 'aaa' }],
       categoryIds: [],
       host:-1,
       roomId:-1,

@@ -5,7 +5,7 @@ class Socket {
     this.socketMsgQueue = [];
   }
   connect(data, cb) {
-    let url = 'ws://192.168.124.8:3000/wss3/enter?'
+    let url = 'ws://172.23.234.251:3000/wss3/enter?'
     for (var key in data) {
       url += key + '=' + data[key] + '&'
     }
@@ -19,13 +19,14 @@ class Socket {
         this.parseData(res.data)
       })
       wx.onSocketOpen((res) => {
+        cb && cb();
         this.socketOpen = true
         for (let i = 0; i < this.socketMsgQueue.length; i++) {
           send(this.socketMsgQueue[i])
         }
         this.socketMsgQueue = []
       })
-      cb && cb();
+      
     } catch (e) {
       throw e
     }
