@@ -13,6 +13,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    title:'',
     openid:0,
     host:-1,
     userList: [],
@@ -84,6 +85,9 @@ Page({
         host: data.host
       })
     })
+  },
+  setTitle: ()=>{
+
   },
   //重新切词
   changeWord: function(){

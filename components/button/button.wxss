@@ -1,0 +1,13 @@
+.btn{
+  width: 178rpx;
+  height: 66rpx;
+  font-size: 24rpx;
+  color: #fff;
+  background: url(https://cloud-minapp-20438.cloud.ifanrusercontent.com/1gRTXM0QKJxNfqcb.png) no-repeat;
+  background-size: cover;
+}
+.btn.small{
+
+  background: url(https://cloud-minapp-20438.cloud.ifanrusercontent.com/1gRTXTlSFwhU2agk.png) no-repeat;
+  
+}

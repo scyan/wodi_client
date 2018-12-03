@@ -1,8 +1,19 @@
 
+.container{
+  
+  background-image: url(https://cloud-minapp-20438.cloud.ifanrusercontent.com/1gRTtdqXJyi9a6zR.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  padding-top: 328rpx;
+} 
+.white{
+  color: #fff;
+}
 .main-bg{
   position: absolute;
   top:0;
   left:0;
+  z-index: -1;
 }
 .main-content{
   /* margin-top: 164rpx; */

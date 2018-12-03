@@ -17,6 +17,12 @@ module.exports = {
     voteEnd:5,//投票结束
     gameOver:6//游戏结束
   },
+  title:{
+    ready:'准备或邀请好友',
+    speak:(name='')=>{return `${name}发言中`},
+    vote:()=>{return '请投票'},
+    
+  },
   audioConfig:{
     duration:100000,
     frameSize:500

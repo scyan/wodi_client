@@ -11,6 +11,7 @@ class Room {
       categoryIds: [],
       host:-1,
       roomId:-1,
+      title:'',
     };
   }
   filter(keyArray){
@@ -27,6 +28,7 @@ class Room {
       this.setChangedData();
     }
   }
+  setTitle(){}
   setId(id){
     if(this.data.roomId!==id){
       this.data.roomId=id;

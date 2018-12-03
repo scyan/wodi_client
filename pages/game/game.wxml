@@ -1,17 +1,19 @@
 <view class="container">
   
   
-  
+  <view class="title">邀请玩家或准备</view>
   <view class="big-pic">
-    <image class="main-bg" src="../../resource/image/game/game-bg.png"></image>
-    <text  wx:if="{{status<2}}">当前已准备人数：{{readyCount}}</text>
-    <button wx:if="{{status<2}}" open-type="share">邀请好友加入</button>
+   
+  
+    <text class="white" wx:if="{{status<2}}">当前已准备人数：{{readyCount}}</text>
+<view class="main-content">
+  <view class="main-content-bg">
+    <block wx:if="{{status<2}}"> <btn openType="share">邀请好友</btn> </block>
+
     <block wx:if="{{status>=2}}">
       您的词：{{word}}
       <button wx:if="{{host==openid}}" bindTap="changeWord">重新发词</button>
     </block>
-<view class="main-content">
-  <view class="main-content-bg">
    <scroll-view class="userlist-container" scroll-y="true">
       <view class="{{index%2?'user-item odd-item':'user-item even-item'}}" wx:key="{{index}}" wx:for="{{userList}}">
         <image class="user-avatar" src='{{item.avatar}}'></image>
