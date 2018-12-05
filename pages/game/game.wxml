@@ -1,6 +1,6 @@
 <view class="container">
   
-  <title status="{{status}}"></title>
+  <title status="{{status}}" userName="{{speakingUser && speakingUser.userName||''}}"></title>
   
   <view class="big-pic">
    
