@@ -1,0 +1,7 @@
+<!--components/title/title.wxml-->
+<view wx:if="{{status<=1}}" class="title">邀请玩家或准备</view>
+<view wx:elif="{{status<=3}}" class="title">{{userName}}发言中</view>
+<view wx:elif="{{status==4}}" class='title'>请投票</view>
+<view wx:elif="{{status==5}}" class='title'>本轮投票结束</view>
+<view wx:elif="{{status==6}}"  class='title'>游戏结束</view>
+

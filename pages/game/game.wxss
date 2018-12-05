@@ -1,10 +1,10 @@
 
 .container{
-  
+  justify-content: flex-start;
   background-image: url(https://cloud-minapp-20438.cloud.ifanrusercontent.com/1gRTtdqXJyi9a6zR.png);
   background-repeat: no-repeat;
   background-size: contain;
-  padding-top: 328rpx;
+  padding-top: 190rpx;
 } 
 .white{
   color: #fff;
@@ -15,6 +15,7 @@
   left:0;
   z-index: -1;
 }
+
 .main-content{
   /* margin-top: 164rpx; */
   position: relative;

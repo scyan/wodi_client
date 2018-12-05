@@ -1,0 +1,6 @@
+/* components/title/title.wxss */
+.title{
+  background: #5852C6;
+  color: #fff;
+  padding: 0 20rpx;
+}
