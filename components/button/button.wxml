@@ -1,7 +1,7 @@
 
 <block wx:if="{{size=='small'}}" >
-	<button open-type="{{openType||''}}" class="btn small"><slot></slot></button>
+	<button open-type="{{openType||''}}" bindtap="tap" class="btn small"><slot></slot></button>
 </block>
 <block wx:else class="btn">
-	<button open-type="{{openType||''}}" class="btn"><slot></slot></button>
+	<button open-type="{{openType||''}}"  bindtap="tap" class="btn"><slot></slot></button>
 </block>

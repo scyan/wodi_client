@@ -1,6 +1,8 @@
 {
 	"usingComponents":{
 	    "btn": "../../components/button/button",
-      "title":"../../components/title/title"
+      "title":"../../components/title/title",
+      "userAction":"../../components/actions/index",
+      "topBtn":"../../components/topBtn/index"
 	}  
 }

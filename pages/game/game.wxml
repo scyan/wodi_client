@@ -1,76 +1,67 @@
 <view class="container">
-  
   <title status="{{status}}" userName="{{speakingUser && speakingUser.userName||''}}"></title>
-  
   <view class="big-pic">
+    <view class="top-bar">
+      <text class="white" wx:if="{{status<2}}">当前已准备人数：{{readyCount}}</text>
    
-  
-    <text class="white" wx:if="{{status<2}}">当前已准备人数：{{readyCount}}</text>
-<view class="main-content">
-  <view class="main-content-bg">
-    <block wx:if="{{status<2}}"> <btn openType="share">邀请好友</btn> </block>
-
-    <block wx:if="{{status>=2}}">
-      您的词：{{word}}
-      <button wx:if="{{host==openid}}" bindTap="changeWord">重新发词</button>
-    </block>
-   <scroll-view class="userlist-container" scroll-y="true">
-      <view class="{{index%2?'user-item odd-item':'user-item even-item'}}" wx:key="{{index}}" wx:for="{{userList}}">
-        <image class="user-avatar" src='{{item.avatar}}'></image>
-        <text>{{item.userName}}</text>
-        <block wx:if="{{item.audio}}">
-            
-          <button data-audio="{{item.audio}}" type="primary" bindtap="audioPlay">播放</button>
-        </block>
-        <block wx:if="{{status==4}}">
-          <button wx:if="{{!voted && openid!==item.userId}}" data-userId="{{item.userId}}" bindtap="vote">投他</button>
-          <text>{{item.voteList?item.voteList.length:0}}票</text>
-        </block>
-        <view wx:if="{{status<2 && item.ready }}">已准备</view>
-      </view>
-    </scroll-view>
+       <topBtn status="{{status}}" host="{{host}}" openid="{{openid}}" bind:resetWord="resetWord"></topBtn>
     </view>
-</view>
+   
+    <view class="main-content">
+      <view class="main-content-bg">
+              <block wx:if="{{status>=2}}">
+        您的词：{{myWord}}
+       
+
+      </block>
+        <scroll-view class="userlist-container" scroll-y="true">
+          <view class="{{index%2?'user-item odd-item':'user-item even-item'}}" wx:key="{{index}}" wx:for="{{userList}}">
+            <image class="user-avatar" src='{{item.avatar}}'></image>
+            <text>{{item.userName}}</text>
+            <userAction status="{{status}}" voted="{{voted}}" item="{{item}}" openid="{{openid}}"></userAction>
+          </view>
+        </scroll-view>
+      </view>
+    </view>
     <text wx:if="{{status==3}}">{{speakingUser.userName}} 正在发言</text>
     <block wx:if="{{status==5}}">
-     <view>
+      <view>
         本轮投票结束，
-        <block wx:if="{{maxUserIndex.length>1}}" >
+        <block wx:if="{{maxUserIndex.length>1}}">
           <text wx:key="{{index}}" wx:for="{{maxUserIndex}}">
             <text> {{userList[item].userName}}</text>
-            <text wx:if="{{index<maxUserIndex.length-1}}">、</text>获得相同票数，
+          <text wx:if="{{index<maxUserIndex.length-1}}">、</text>获得相同票数，
           </text>
         </block>
         <text wx:else> 
           本轮{{userList[maxUserIndex[0]].userName}}死亡
-        </text>
-        ,5秒后进入下一轮发言
-     </view>
+        </text> ,5秒后进入下一轮发言
+      </view>
     </block>
     <block wx:if="{{status===6}}">
-      <view>游戏结束，{{winner}}获胜,</view>
+      <view>游戏结束，{{winnerName}}获胜,</view>
       <view>卧底词：{{words.wodi}}；平民词：{{words.normal}}</view>
     </block>
   </view>
 
   <block wx:if="{{status<2}}">
     <button wx:if="{{!ready}}" class="bottom_area" bindtap="ready">准备</button>
-    <button wx:if="{{ready}}" class="bottom_area" >已准备</button>
+    <button wx:if="{{ready}}" class="bottom_area">已准备</button>
   </block>
 
-  <block wx:elif="{{status<4}}"> 
-    <block  wx:if="{{openid == speakingUser.userId}}">
+  <block wx:elif="{{status<4}}">
+    <block wx:if="{{openid == speakingUser.userId}}">
       <button wx:if="{{mySpeakStatus == 0}}" class="bottom_area" bindtouchstart="speak" bindtouchend="endSpeak">按住发言</button>
-      <block wx:elif="{{mySpeakStatus == 1}}" >
+      <block wx:elif="{{mySpeakStatus == 1}}">
         <view class="bottom_area speak_btn_group">
-          <button   bindtap="sendSpeak" >发送</button>
-          <button   bindtap="reSpeak" >重录</button>
-          <button   bindtap="playMySpeak" >听</button>
+          <button bindtap="sendSpeak">发送</button>
+          <button bindtap="reSpeak">重录</button>
+          <button bindtap="playMySpeak">听</button>
         </view>
       </block>
-      
+
     </block>
-    <button wx:else class="bottom_area" disabled='true' >按住发言</button>
+    <button wx:else class="bottom_area" disabled='true'>按住发言</button>
   </block>
   <view wx:if="{{status==4}}" class="bottom_area">发言完毕，进入投票阶段，请点击玩家后面的“投票”按钮进行投票，每人只能投一次</view>
   <button wx:if="{{status===6}}" bindtap="{{refresh}}">进入新一轮游戏</button>

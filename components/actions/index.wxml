@@ -1,9 +1,9 @@
 <!--components/actions/index.wxml-->
-<block wx:if="{{status>=3 && status<=4 && user.audio}}">
-  <button data-audio="{{user.audio}}" type="primary" bindtap="audioPlay">播放</button>
+<block wx:if="{{item.audio}}">
+  <button data-audio="{{item.audio}}" type="primary" bindtap="audioPlay">播放</button>
 </block>
 <block wx:if="{{status==4}}">
-  <button wx:if="{{!voted && openid!==user.userId}}" data-userId="{{user.userId}}" bindtap="vote">投他</button>
-  <text>{{user.voteList?user.voteList.length:0}}票</text>
+  <button wx:if="{{!voted && openid!==item.userId}}" data-userId="{{item.userId}}" bindtap="vote">投他</button>
+  <text>{{item.voteList?item.voteList.length:0}}票</text>
 </block>
-<view wx:if="{{status<2 && user.ready }}">已准备</view>
+<view wx:if="{{status<2 && item.ready }}">已准备</view>

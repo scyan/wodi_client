@@ -1,4 +1,5 @@
 const gdc = require('./utils/gdc');
+const app = getApp();
 const {
   status
 } = gdc;
@@ -12,6 +13,10 @@ class Room {
       host:-1,
       roomId:-1,
       title:'',
+      myWord:'',//我的词
+      readyCount:0,
+      speakingUser:null,//正在发言的人
+      mySpeakStatus: 0,//我的发言状态 0:未发言，1:发言完毕
     };
   }
   filter(keyArray){
@@ -44,19 +49,45 @@ class Room {
   //改变用户状态，数量或者个别用户状态
   changeUserList(userList) {
     this.data.userList = userList;
+    this.getRreadyCount();
     this.setChangedData()
+  }
+  getRreadyCount(){
+    let readyCount = 0;
+    this.data.userList.map((user) => {
+      if (user.status == 'ready') {
+        readyCount++
+      }
+    })
+    this.data.readyCount=readyCount;
   }
   //开始游戏
   start(userList) {
     this.data.status = status.start;
     this.data.userList = userList;
+    this.findMyWord();
     this.setChangedData()
+  }
+  //找到自己的词
+  findMyWord(){
+    
+    const userInfo = app.getUserInfo();
+    this.data.userList.some((user) => {
+      if (user.userId == userInfo.openid) {
+        // word = user.word;
+        this.data.myWord = user.word;
+        return true;
+      }
+    })
+
+    // return word;
   }
   canSpeak(userList, notFirst) {
     Object.assign(this.data, {
       status: status.speak,
       userList
     })
+    this.getSpeakUser();
 
     if (notFirst) {
       setTimeout(() => {
@@ -64,8 +95,22 @@ class Room {
       }, 5000)
       return;
     }
-    this.setChangedData()
+    // this.setChangedData()
 
+  }
+  getSpeakUser(){
+    const userInfo = app.getUserInfo();
+    this.data.userList.some((user) => {
+      if (user.speakState === 1) { //0：未轮到，1:轮到发言 2:已经发言
+  
+        this.data.speakingUser = user
+        if (userInfo.openid == user.userId) {
+          this.mySpeakStatus=0
+     
+        }
+        return true;
+      }
+    })
   }
   canVote(userList) {
     Object.assign(this.data, {
@@ -87,6 +132,7 @@ class Room {
       status: status.gameOver,
       userList,
       winner,
+      winnerName: winner == 'wodi' ? '卧底' : '平民',
       words
     })
     this.setChangedData();

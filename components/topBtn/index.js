@@ -1,20 +1,20 @@
-// components/actions/index.js
+// components/topBtn/index.js
 const app = getApp();
 Component({
   /**
    * 组件的属性列表
    */
   properties: {
-    status:{
+    status: {
       type: Number,
-      value:1
+      value: 0
     },
-    item:{
-      type: Object,
-      value:{}
+    host:{
+      type: String,
+      value: 0
     },
     openid:{
-      type:"String",
+      type:String,
       value:0
     }
   },
@@ -24,12 +24,15 @@ Component({
    */
   data: {
     
+    // openid: app.getUserInfo().openid
   },
 
   /**
    * 组件的方法列表
    */
   methods: {
-
+    resetWord:function(){
+      this.triggerEvent('resetWord')
+    }
   }
 })

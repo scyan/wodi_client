@@ -1,0 +1,13 @@
+<!--components/topBtn/index.wxml-->
+   <view class='top-action'>
+      
+      <block wx:if="{{status<2}}">
+        <btn openType="share">邀请好友</btn>
+      </block>
+
+      <block wx:if="{{status>=2}}">
+        {{test}}
+        <btn wx:if="{{host==openid}}" bindTap="resetWord" bind:resetWord="resetWord">重新发词</btn>
+
+      </block>
+    </view>

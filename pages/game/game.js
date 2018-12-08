@@ -20,7 +20,7 @@ Page({
     ready: false, //个人状态，是否准备
     voted: false,//个人状态，是否投票
     status: status.ready, //房间状态
-    word: '', //我的词语
+    myWord: '', //我的词语
     start: false, //游戏是否已经开始
     readyCount: 0, //已准备人数
     speakingUser: {}, //当前发言的用户信息
@@ -32,7 +32,7 @@ Page({
    */
   onLoad: function(options) {
     const {roomId,categoryIds}=options;
-    if(roomId && categoryIds){
+    if(roomId && categoryIds){//从分享卡片直接进入
       const userInfo = app.getUserInfo();
       room.setCategoryIds(JSON.parse(categoryIds))
       room.setId(oprions.roomId);
@@ -43,7 +43,7 @@ Page({
         userName: userInfo.nickName,
         avatar: userInfo.avatarUrl,
       });
-    }else{
+    }else{//从上一个页面过来
       this.setData({
         openid: app.getUserInfo().openid,
         userList: room.getUserList()
@@ -51,46 +51,49 @@ Page({
     }
 
     room.addListener('game', (data) => {
-      //如果游戏开始，从userList中获取自己的词
-      if (this.data.status < status.start && data.status == status.start) {
-        this.setData({
-          word: this.getWord(data.userList)
-        })
-      }
-      //如果游戏未开始，每次userList更新获取已准备人数
-      if (data.status < status.start) {
-        this.setData({
-          readyCount: this.getReadyCount
-        })
-      }
-      //发言阶段，每次找到发言人
-      if (data.status == status.speak) {
-        this.getSpeakUser(data.userList);
-      }
-      if(data.status==status.voteEnd){
-        this.setData({
-          maxUserIndex: maxUserIndex
-        })
-      }
-      if(data.status===status.gameOver){
-        this.setData({
-          winner: data.winner=='wodi'?'卧底':'平民',
-          words: data.words
-        })
-      }
-      
       this.setData({
-        userList: data.userList,
-        status: data.status,
-        host: data.host
+        ...data
       })
+    //   //如果游戏开始，从userList中获取自己的词
+    //   if (this.data.myWord!=data.myWord) {
+    //     this.setData({
+    //       myWord: data.myWord
+    //     })
+    //   }
+    //   //如果游戏未开始，每次userList更新获取已准备人数
+    //   if (this.data.readyCount!=data.readyCount) {
+    //     this.setData({
+    //       readyCount: data.readyCount
+    //     })
+    //   }
+    //   //发言阶段，每次找到发言人
+    //   if (data.status == status.speak) {
+    //     this.getSpeakUser(data.userList);
+    //   }
+    //   if(data.status==status.voteEnd){
+    //     this.setData({
+    //       maxUserIndex: data.maxUserIndex
+    //     })
+    //   }
+    //   if(data.status===status.gameOver){
+    //     this.setData({
+    //       winner: data.winner=='wodi'?'卧底':'平民',
+    //       words: data.words
+    //     })
+    //   }
+      
+    //   this.setData({
+    //     userList: data.userList,
+    //     status: data.status,
+    //     host: data.host
+    //   })
     })
   },
   setTitle: ()=>{
 
   },
   //重新切词
-  changeWord: function(){
+  resetWord: function(){
     socket.send({
       type:'change_word'
     })
@@ -171,27 +174,8 @@ Page({
       toUserId: e.target.dataset.userId
     })
   },
-  //获取自己的词
-  getWord(userList) {
-    let word = this.data.word;
-    const userInfo = app.getUserInfo();
-    userList.some((user) => {
-      if (user.userId == userInfo.openid) {
-        word = user.word;
-        return true;
-      }
-    })
-    return word;
-  },
-  getReadyCount(userList) {
-    let readyCount = 0;
-    userList.map((user) => {
-      if (user.status == 'ready') {
-        readyCount++
-      }
-    })
-    return readyCount;
-  },
+
+
   getSpeakUser(userList) {
     const userInfo = app.getUserInfo();
     userList.some((user) => {

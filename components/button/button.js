@@ -11,6 +11,10 @@ Component({
     openType:{
       type:String,
       value:''
+    },
+    bindTap:{
+      type:String,
+      value:''
     }
   },
 
@@ -25,6 +29,8 @@ Component({
    * 组件的方法列表
    */
   methods: {
-
+    tap:function(e){
+      this.triggerEvent(this.properties.bindTap,e,{})
+    }
   }
 })
